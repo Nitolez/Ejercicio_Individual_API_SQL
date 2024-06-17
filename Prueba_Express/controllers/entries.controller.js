@@ -15,8 +15,8 @@ const getEntries = async (req, res) => {
         if (req.query.email) {
             entries = await entry.getEntriesByEmail(req.query.email);
         }
-        else {
-            entries = await entry.getAllEntries();
+        else{
+            entries = await entry.getAllEntriesWithAuthor();
         }
         res.status(200).json(entries); // [] con las entries encontradas
     } catch (error) {
@@ -82,10 +82,24 @@ const updateEntry = async (req, res) => {
   };
 
 
+//DELETE
+  const deleteEntry = async (req, res) => {
+    const { id } = req.params; // Obtener el ID de la entrada a eliminar desde los parámetros de la ruta
+    try {
+        const response = await entry.deleteEntry(id); // Llamar al método del modelo para eliminar la entrada por su ID
+        if (response.deletedCount === 1) {
+            res.status(200).json({ message: `Entrada con ID ${id} eliminada correctamente` });
+        } else {
+            res.status(404).json({ error: `No se encontró la entrada con ID ${id}` });
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Error en la BBDD al intentar eliminar la entrada" });
+    }
+};
 
 module.exports = {
     getEntries,
     createEntry,
-    //deleteEntry, --> DELETE
+    deleteEntry,
     updateEntry
 }

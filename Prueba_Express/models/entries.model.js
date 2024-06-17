@@ -42,6 +42,21 @@ const getAllEntries = async () => {
     return result
 }
 
+const getAllEntriesWithAuthor = async () => {
+    let client, result;
+    try {
+        client = await pool.connect(); // Espera a abrir conexion
+        const data = await client.query(queries.getAllEntriesWithAuthor)
+        result = data.rows
+    } catch (err) {
+        console.log(err);
+        throw err;
+    } finally {
+        client.release();
+    }
+    return result
+}
+
 // CREATE
 const createEntry = async (entry) => {
     const { title, content, email, category } = entry;
@@ -60,6 +75,20 @@ const createEntry = async (entry) => {
 }
 
 // DELETE
+const deleteEntry = async (id) => {
+    let client, result;
+    try {
+        client = await pool.connect(); // Esperar a abrir conexión
+        const data = await client.query(queries.deleteEntry, [id]);
+        result = data.rowCount; // Número de filas afectadas
+    } catch (err) {
+        console.error('Error en deleteEntry:', err);
+        throw err;
+    } finally {
+        client.release(); // Liberar cliente de la conexión
+    }
+    return result; // Devolver el número de filas afectadas (debería ser 1 si se eliminó correctamente)
+}
 //UPDATE
 const updateEntry = async (entry) => {
     const { title, content, date, email, category, old_title } = entry;
@@ -89,8 +118,9 @@ const entries = {
     getEntriesByEmail,
     getAllEntries,
     createEntry,
-    //deleteEntry
-    updateEntry
+    deleteEntry,
+    updateEntry,
+    getAllEntriesWithAuthor
 }
 
 module.exports = entries;

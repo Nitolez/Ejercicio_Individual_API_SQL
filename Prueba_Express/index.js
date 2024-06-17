@@ -14,6 +14,7 @@ app.use(morgan(':method :url :status :param[id] - :response-time ms :body'));
 const booksRoutes = require("./routes/books.routes")
 const productsRoutes = require("./routes/products.routes")
 const entriesRoutes = require("./routes/entries.routes")
+const authorRoutes = require("./routes/author.routes")
 
 
 app.use(express.json()); // Habilito recepción de JSON en servidor
@@ -29,6 +30,8 @@ app.get('/', (req, res) => {
 app.use('/api/books',booksRoutes);
 app.use('/api/products',productsRoutes);
 app.use('/api/entries',entriesRoutes);
+app.use('/api/authors',authorRoutes);
+
 
 app.use(error404);
 
