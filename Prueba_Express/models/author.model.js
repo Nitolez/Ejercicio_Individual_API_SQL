@@ -69,9 +69,9 @@ const deleteAuthor = async (id) => {
         console.error('Error en deleteAuthor:', err);
         throw err;
     } finally {
-        client.release(); // Liberar cliente de la conexión
+        client.release(); 
     }
-    return result; // Devolver el número de filas afectadas (debería ser 1 si se eliminó correctamente)
+    return result; 
 }
 
 // UPDATE
