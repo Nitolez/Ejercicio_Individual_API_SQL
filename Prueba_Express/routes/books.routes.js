@@ -1,6 +1,11 @@
 const router = require('express').Router();
 const booksController = require('../controllers/books.controller');
 const checkApiKey = require('../middlewares/auth_api_key'); 
+const {
+  booksDataValidateChainMethod
+} = require("..books.validation");
+
+
 //Cada vez que alguien invoque post, put o delete invoca esto que te verifica la api key
 
 // CRUD --> CREATE, READ, UPDATE, DELETE
@@ -24,7 +29,7 @@ router.get("/:title?", booksController.getBook);
 // POST http://localhost:3000/api/books
 // POST http://localhost:3000/api/books/API_KEY=123abc
 
-router.post("/", checkApiKey, booksController.createBook);
+router.post("/", checkApiKey, booksDataValidateChainMethod, booksController.createBook);
 
 // PUT http://localhost:3000/api/books
 // PUT http://localhost:3000/api/books/API_KEY=123abc

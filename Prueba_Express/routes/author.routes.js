@@ -1,9 +1,12 @@
 const express = require('express');
 const authorController = require("../controllers/author.controller");
 const router = express.Router();
+const {
+    authorDataValidateChainMethod
+  } = require("../validations/authors.validation");
 
 router.get('/', authorController.getAuthor);
-router.post('/', authorController.createAuthor);
+router.post('/', authorDataValidateChainMethod, authorController.createAuthor);
 router.put('/', authorController.updateAuthor);
 router.delete('/:id', authorController.deleteAuthor);
 
