@@ -1,6 +1,13 @@
+require('dotenv').config()
+import pg, { Connection } from 'pg'
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000;
+const pool = new pg.Pool({
+  connectionString: process.env.DATABASE_URL
+})
+
+
 
 //Middlewares
 
@@ -20,7 +27,8 @@ app.use(express.json()); // Habilito recepción de JSON en servidor
 
 app.get('/', (req, res) => {
   res.send("Hello World");
-
+  const result = pool.query('SELECT * FROM entries')
+  return res.json(result.rows[0])
 })
 
 // Rutas
