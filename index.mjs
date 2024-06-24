@@ -1,12 +1,13 @@
 require('dotenv').config()
-import pg, { Connection } from 'pg'
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000;
 const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL
 })
+import pg from 'pg';
 
+const { Client } = pg;
 
 
 //Middlewares
