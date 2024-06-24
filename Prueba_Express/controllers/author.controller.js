@@ -20,46 +20,25 @@ const getAuthor = async (req, res) => {
 
 // Crear author por email
 const createAuthor = async (req, res, next) => {
-//     const newAuthor = req.body; // {id_author, name, surname, email, image}
-//     if (
-//         "id_author" in newAuthor &&
-//         "name" in newAuthor &&
-//         "surname" in newAuthor &&
-//         "email" in newAuthor &&
-//         "image" in newAuthor
-//     ) {
-//         try {
-//             const response = await authorModel.createAuthor(newAuthor);
-//             res.status(201).json({
-//                 items_created: response,
-//                 data: newAuthor,
-//             });
-//         } catch (error) {
-//             res.status(500).json({ error: "Error en la BBDD" });
-//         }
-//     } else {
-//         res.status(400).json({ error: "Faltan campos en la entrada" });
-//     }
-// }
-try {
-    const errors = validationResult(req);
+    try {
+        const errors = validationResult(req);
 
-    // if there is error then return Error
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        success: false,
-        errors: errors.array(),
-      });
+        // if there is error then return Error
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                success: false,
+                errors: errors.array(),
+            });
+        }
+
+        // do some operation - like save data to DB (eg mongodb)
+        // dummy code
+        // User.create(req.body);
+
+        res.json({ success: true });
+    } catch (err) {
+        next(err);
     }
-
-    // do some operation - like save data to DB (eg mongodb)
-    // dummy code
-    // User.create(req.body);
-
-    res.json({ success: true });
-  } catch (err) {
-    next(err);
-  }
 };
 
 // Update author

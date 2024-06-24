@@ -1,11 +1,6 @@
 const { body } = require("express-validator");
 
 const authorDataValidateChainMethod = [
-    body("id_author")
-        .exists({ checkFalsy: true })
-        .withMessage("ID is required")
-        .isString()
-        .withMessage("ID should be string"),
     body("name")
         .exists()
         .withMessage("Name is required")
