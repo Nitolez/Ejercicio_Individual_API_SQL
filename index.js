@@ -21,8 +21,7 @@ const authorRoutes = require('./routes/author.routes');
 
 app.get('/', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM entries');
-    res.json(result.rows[0]);
+    console.log("BBDD SQL")
   } catch (err) {
     console.error('Error al obtener datos:', err);
     res.status(500).send('Error al obtener datos');
