@@ -1,11 +1,13 @@
-require('dotenv').config()
+import pg from 'pg';
+import dotenv from 'dotenv';
+dotenv.config();
+
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000;
 const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL
 })
-import pg from 'pg';
 
 const { Client } = pg;
 
